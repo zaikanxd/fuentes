@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kEntorno = 'test'; // test o prod
+const kEntorno = 'prod'; // test o prod
 
 const kPrimaryColor = Color(0xFF00A132);
 const kPrimaryColorDark = Color(0xFF007100);
