@@ -37,6 +37,8 @@ dependencies:
   intl: ^0.16.1
   flutter_phone_direct_caller: ^1.0.1
   sendsms: ^1.0.3
+  flutter_secure_storage:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

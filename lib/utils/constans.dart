@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kEntorno = 'prod'; // test o prod
-
+const kStorage ='microbank' ;
 const kPrimaryColor = Color(0xFF00A132);
 const kPrimaryColorDark = Color(0xFF007100);
 const kPrimaryColorLight = Color(0xFF54D361);
