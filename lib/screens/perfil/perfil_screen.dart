@@ -27,6 +27,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final _utilService = UtilService.instance;
   final _analistaService = AnalistaService.instance;
+  final _vsession = SessionState();
   Session _session;
   String _userName;
   DateTime _fechaSistema;
@@ -171,6 +172,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                                 await Provider.of<SessionState>(context,
                                         listen: false)
                                     .setUserName(null);
+                                _vsession.deleteStorage();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, LoginScreen.id, (route) => false);
                               },

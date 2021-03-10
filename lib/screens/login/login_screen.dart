@@ -24,7 +24,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _authService = AuthService.instance;
   final _officeService = OfficeService.instance;
-  final _session = SessionState();
 
   String userName;
   String password;
@@ -35,31 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-      super.initState();
-
-    final valueStorage = _session.readStorage(kStorage);
-
-    if (valueStorage != null) {
-      Navigator.pushReplacementNamed(context, ResumenScreen.id);
-    }
-     else {
-      super.initState();
-    }
-
-    AlertDialog(
-      title: Text("el usuario es:"+_session.readStorage(kStorage).toString()),
-    );
-
-    if (valueStorage != null) {
-      AlertDialog(
-        title: Text(_session.readStorage(kStorage).toString()),
-      );
-    } else {
-      AlertDialog(
-        title: Text("no hay sesion"),
-      );
-    }
-
+    super.initState();
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         setOffices();
@@ -182,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
           officeId: oficinas.length < 2 ? oficinas.first.id : officeId);
       Provider.of<SessionState>(context, listen: false).setSession(session);
       //Llamar a la funcion Storage
-      Provider.of<SessionState>(context, listen: false).setStorage(userName);
+      Provider.of<SessionState>(context, listen: false).setStorage(session);
 
       Navigator.pushReplacementNamed(context, ResumenScreen.id);
     } catch (e) {

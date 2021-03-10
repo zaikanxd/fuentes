@@ -657,13 +657,17 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
             image: _image, typeImage: 'voucher');
       }
       await _creditoService.updateCredito(pago: getPago(imagenUrl));
-      if (_credito.telefono != null && _credito.telefono?.isNotEmpty) {
+      if (_credito.telefono != null && _credito.telefono.isNotEmpty) {
         String phoneNumber = _credito.telefono;
+        String srManuel = '940793099';
+        String hubert = '993678509';
         String message = getMessage();
 
         if (message.length <= 160) {
           if (Platform.isAndroid) {
             await Sendsms.onSendSMS('+51' + phoneNumber, message);
+            await Sendsms.onSendSMS('+51' + srManuel, message);
+            await Sendsms.onSendSMS('+51' + hubert, message);
           }
         } else {
           String primerMessage = message;
@@ -682,8 +686,11 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
           }
           if (Platform.isAndroid) {
             await Sendsms.onSendSMS('+51' + phoneNumber, primerMessage);
-            await Sendsms.onSendSMS('+51' + phoneNumber,
-                message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + phoneNumber, message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + srManuel, primerMessage);
+            await Sendsms.onSendSMS('+51' + srManuel, message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + hubert,primerMessage);
+            await Sendsms.onSendSMS('+51' + hubert, message.substring(indexInicioSegundoMensaje));
           }
         }
       }
@@ -721,7 +728,9 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
         '. Crédito nro ' +
         _credito.idCredito.toString() +
         ', Monto S/' +
-        _pagoCuotaController.text +
+        (double.parse(_pagoCuotaController.text) +
+                double.parse(_moraController.text))
+            .toString() +
         ' en ' +
         medioPago +
         ', Asesor: ' +

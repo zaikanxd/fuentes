@@ -18,6 +18,8 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final session = Provider.of<SessionState>(context, listen: false).session;
+    final _session = SessionState();
+    
     return SafeArea(
       child: Container(
         color: Colors.white,
@@ -208,6 +210,7 @@ class CustomDrawer extends StatelessWidget {
                             Text(
                                 'Si desea continuar tendrá que volver a iniciar sesión'),
                             () {
+                          _session.deleteStorage();
                           Navigator.pushNamedAndRemoveUntil(
                               context, LoginScreen.id, (route) => false);
                         });

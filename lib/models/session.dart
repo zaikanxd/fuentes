@@ -47,6 +47,23 @@ class Session {
         empresaName = session['EmpresaName'],
         description = session['Description'];
 
+  Session.fromMapStorage(Map<String, dynamic> session)
+      : officeId = int.parse(session['officeId']),
+        officeName = session['officeName'],
+        aplicacionId = int.parse(session['aplicacionId']),
+        aplicacionName = session['AplicacionName'],
+        roleId = int.parse(session['roleId']),
+        roleName = session['roleName'],
+        userId = int.parse(session['userId']),
+        userName = session['userName'],
+        dateCreation = session['dateCreation'] != null
+            ? DateTime.parse(session['dateCreation'])
+            : null,
+        nomApellidos = session['nomApellidos'],
+        empresaId = int.parse(session['empresaId']),
+        empresaName = session['empresaName'],
+        description = session['description'];
+
   Map<String, String> toMapFirst(String userName) => {
         'idUsuario': userName,
         'idOficina': officeId.toString(),
@@ -64,6 +81,22 @@ class Session {
         'idOficina': officeId.toString(),
       };
 
+  Map<String, String> toMapFour() => {
+        'officeId': officeId.toString(),
+        'officeName': officeName,
+        'aplicacionId': aplicacionId.toString(),
+        'aplicacionName': aplicacionName,
+        'roleId': roleId.toString(),
+        'roleName': roleName,
+        'userId': userId.toString(),
+        'userName': userName,
+        'dateCreation': dateCreation.toString(),
+        'nomApellidos': nomApellidos,
+        'empresaId': empresaId.toString(),
+        'empresaName': empresaName,
+        'description': description,
+      };
+      
   Map<String, String> toMapLogin(
           String userName, String password, int officeId) =>
       {

@@ -15,12 +15,14 @@ class Pago {
   String numCheque;
   String fechaVoucher;
   String imagen;
+  double total;
 
   Pago(
       {this.idCredito,
       this.idOficinaOpe,
       this.fecha,
       this.monto,
+      this.total,
       this.mora,
       this.tipo,
       this.codOperacion,
@@ -41,6 +43,7 @@ class Pago {
         'pdFecha': fecha,
         'pnMonto': monto,
         'pnMora': mora,
+        'total': total,
         'pbTipo': tipo,
         'idCodOperacion': codOperacion,
         'idBanco': idBanco,
@@ -55,7 +58,7 @@ class Pago {
 
   @override
   String toString() {
-    return 'Pago{idCredito: $idCredito,idUser:$idUser, idOficinaOpe: $idOficinaOpe,fecha: $fecha,monto: $monto,mora:$mora,tipo: $tipo,codOperacion:$codOperacion,idBanco:$idBanco,'
+    return 'Pago{idCredito: $idCredito,idUser:$idUser, idOficinaOpe: $idOficinaOpe,fecha: $fecha,monto: $monto,mora:$mora,total:$total,tipo: $tipo,codOperacion:$codOperacion,idBanco:$idBanco,'
         'numCheque:$numCheque,fechaVoucher:$fechaVoucher,idKardexHijo:$idKardexHijo,valuta:$valuta,idOpcion1:$idOpcion1,idOpcion2:$idOpcion2,imagen:$imagen}';
   }
 }

@@ -255,7 +255,7 @@ class _ResumenScreenState extends State<ResumenScreen> {
                             Padding(
                               padding: EdgeInsets.only(left: 10.0),
                               child: Text(
-                                'Estado de la cartera',
+                                'Gestión del dia',
                                 style: _titleStyle,
                               ),
                             ),
@@ -308,7 +308,7 @@ class _ResumenScreenState extends State<ResumenScreen> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Dif. entre lo cobrado y depositado',
+                                  'Efectivo cobrado vs depositado',
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
