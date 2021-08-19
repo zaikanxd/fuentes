@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 180,
                     ),
                     Text(
-                      'Bienvenido a microbank',
+                      'Bienvenido a 5 Credit',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,

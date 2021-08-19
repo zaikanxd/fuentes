@@ -70,6 +70,9 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
   bool _autovalidate;
   Session _session;
   bool _isExpanded;
+  int __cuotaSiguiente;
+  String _cuotaCancelada;
+  String _cuotaActual;
   final _form = GlobalKey<FormState>();
 
   FocusNode _pagoCuotaFocus = FocusNode();
@@ -114,6 +117,11 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
     _fetchingBancos = _selectOptionService
         .getSelectOptions(idGroup: SelectOption.idGroupBancos)
         .then((value) => _bancos = value);
+
+    _cuotaActual = _credito.cuotaPagada.substring(0, 2);
+    __cuotaSiguiente = int.parse(_cuotaActual) + 1;
+    _cuotaCancelada = _credito.cuotaPagada.substring(2, 5);
+    _cuotaCancelada = __cuotaSiguiente.toString() + _cuotaCancelada.toString();
     setState(() {});
   }
 
@@ -242,6 +250,7 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
                                       children: [
                                         Text('Cuotas Pagada'),
                                         Text(
+                                          // _cuotaCancelada,
                                           _credito.cuotaPagada,
                                           style: _subTitleStyle,
                                         ),
@@ -659,15 +668,24 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
       await _creditoService.updateCredito(pago: getPago(imagenUrl));
       if (_credito.telefono != null && _credito.telefono.isNotEmpty) {
         String phoneNumber = _credito.telefono;
-        String srManuel = '940793099';
-        String hubert = '993678509';
+        // String socio1 = '940793099' ; //ves
+        // String socio2 = ' 936953070';
+
+        // String socio1 = '940793099' ; //olivos
+        // String socio2 = '992411136' ;
+
+        String socio1 = '952555188'; // //Piura
+        String socio2 = '993341321';
+        String socio3 = '943628102';
+
         String message = getMessage();
 
         if (message.length <= 160) {
           if (Platform.isAndroid) {
             await Sendsms.onSendSMS('+51' + phoneNumber, message);
-            await Sendsms.onSendSMS('+51' + srManuel, message);
-            await Sendsms.onSendSMS('+51' + hubert, message);
+            await Sendsms.onSendSMS('+51' + socio1, message);
+            await Sendsms.onSendSMS('+51' + socio2, message);
+            await Sendsms.onSendSMS('+51' + socio3, message);
           }
         } else {
           String primerMessage = message;
@@ -686,11 +704,17 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
           }
           if (Platform.isAndroid) {
             await Sendsms.onSendSMS('+51' + phoneNumber, primerMessage);
-            await Sendsms.onSendSMS('+51' + phoneNumber, message.substring(indexInicioSegundoMensaje));
-            await Sendsms.onSendSMS('+51' + srManuel, primerMessage);
-            await Sendsms.onSendSMS('+51' + srManuel, message.substring(indexInicioSegundoMensaje));
-            await Sendsms.onSendSMS('+51' + hubert,primerMessage);
-            await Sendsms.onSendSMS('+51' + hubert, message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + phoneNumber,
+                message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + socio1, primerMessage);
+            await Sendsms.onSendSMS(
+                '+51' + socio2, message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + socio2, primerMessage);
+            await Sendsms.onSendSMS(
+                '+51' + socio2, message.substring(indexInicioSegundoMensaje));
+            await Sendsms.onSendSMS('+51' + socio3, primerMessage);
+            await Sendsms.onSendSMS('+51' + socio3,
+                message.substring(indexInicioSegundoMensaje));
           }
         }
       }
@@ -721,7 +745,7 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
               ', ' +
               DateFormat('dd/MM/yyyy').format(_voucherDate);
     }
-    return 'Microbank:Pago Realizado ' +
+    return '5 Credit:Pago Realizado ' + _cuotaCancelada + '  ' +
         DateFormat('dd/MM/yyyy HH:mm').format(new DateTime.now()) +
         ' Sr(a) ' +
         widget.nombre +
@@ -730,7 +754,9 @@ class _PagarCreditoScreenState extends State<PagarCreditoScreen> {
         ', Monto S/' +
         (double.parse(_pagoCuotaController.text) +
                 double.parse(_moraController.text))
-            .toString() +
+            .toStringAsFixed(2) +
+        // ' Cuota Pagada:' +
+        // _cuotaCancelada.toString() +
         ' en ' +
         medioPago +
         ', Asesor: ' +
